@@ -6,6 +6,7 @@ import { Card } from '../entities/card.entity';
 import { Account } from '../entities/account.entity';
 import { CardProduct } from '../entities/card-product.entity';
 import { MakerCheckerRequest } from '../entities/maker-checker-request.entity';
+import { Transaction } from '../entities/transaction.entity';
 import { CardStatus, MakerCheckerStatus, MakerCheckerType } from '../common/enums';
 import { CardLifecycleService } from '../card-lifecycle/card-lifecycle.service';
 import { AuditService } from '../audit/audit.service';
@@ -24,6 +25,8 @@ export class CardsService {
     private readonly cardProductRepo: Repository<CardProduct>,
     @InjectRepository(MakerCheckerRequest)
     private readonly approvalRepo: Repository<MakerCheckerRequest>,
+    @InjectRepository(Transaction)
+    private readonly txnRepo: Repository<Transaction>,
     private readonly lifecycle: CardLifecycleService,
     private readonly auditService: AuditService,
     private readonly pinService: PinService,
@@ -259,5 +262,10 @@ export class CardsService {
     if (accountId) where.accountId = accountId;
     if (status) where.status = status;
     return this.cardRepo.findBy(where);
+  }
+
+  async getTransactions(cardId: string): Promise<Transaction[]> {
+    await this.findOne(cardId);
+    return this.txnRepo.find({ where: { cardId }, order: { postedAt: 'DESC' } });
   }
 }

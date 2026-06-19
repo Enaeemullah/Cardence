@@ -4,6 +4,7 @@ import { Card } from '../entities/card.entity';
 import { Account } from '../entities/account.entity';
 import { CardProduct } from '../entities/card-product.entity';
 import { MakerCheckerRequest } from '../entities/maker-checker-request.entity';
+import { Transaction } from '../entities/transaction.entity';
 import { CardLifecycleModule } from '../card-lifecycle/card-lifecycle.module';
 import { AuditModule } from '../audit/audit.module';
 import { PinModule } from '../pin/pin.module';
@@ -12,7 +13,7 @@ import { CardsController } from './cards.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Card, Account, CardProduct, MakerCheckerRequest]),
+    TypeOrmModule.forFeature([Card, Account, CardProduct, MakerCheckerRequest, Transaction]),
     CardLifecycleModule,
     AuditModule,
     PinModule,

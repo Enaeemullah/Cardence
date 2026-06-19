@@ -11,6 +11,7 @@ import { AccountsModule } from './accounts/accounts.module';
 import { CardProductsModule } from './card-products/card-products.module';
 import { CardsModule } from './cards/cards.module';
 import { MakerCheckerModule } from './maker-checker/maker-checker.module';
+import { AuthorizationModule } from './authorization/authorization.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { MakerCheckerModule } from './maker-checker/maker-checker.module';
     CardProductsModule,
     CardsModule,
     MakerCheckerModule,
+    AuthorizationModule,
   ],
 })
 export class AppModule {}

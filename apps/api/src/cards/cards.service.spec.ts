@@ -6,6 +6,7 @@ import { Card } from '../entities/card.entity';
 import { Account } from '../entities/account.entity';
 import { CardProduct } from '../entities/card-product.entity';
 import { MakerCheckerRequest } from '../entities/maker-checker-request.entity';
+import { Transaction } from '../entities/transaction.entity';
 import { CardStatus } from '../common/enums';
 import { CardLifecycleService } from '../card-lifecycle/card-lifecycle.service';
 import { AuditService } from '../audit/audit.service';
@@ -42,6 +43,7 @@ describe('CardsService', () => {
   let accountRepo: Record<string, jest.Mock>;
   let cardProductRepo: Record<string, jest.Mock>;
   let approvalRepo: Record<string, jest.Mock>;
+  let txnRepo: Record<string, jest.Mock>;
   let auditService: { log: jest.Mock };
   let pinService: { hashPin: jest.Mock; verifyPin: jest.Mock };
 
@@ -50,6 +52,7 @@ describe('CardsService', () => {
     accountRepo = { findOneBy: jest.fn() };
     cardProductRepo = { findOneBy: jest.fn() };
     approvalRepo = { create: jest.fn(), save: jest.fn() };
+    txnRepo = { find: jest.fn().mockResolvedValue([]) };
     auditService = { log: jest.fn().mockResolvedValue(undefined) };
     pinService = { hashPin: jest.fn().mockResolvedValue('$2b$12$hashed'), verifyPin: jest.fn() };
 
@@ -61,6 +64,7 @@ describe('CardsService', () => {
         { provide: getRepositoryToken(Account), useValue: accountRepo },
         { provide: getRepositoryToken(CardProduct), useValue: cardProductRepo },
         { provide: getRepositoryToken(MakerCheckerRequest), useValue: approvalRepo },
+        { provide: getRepositoryToken(Transaction), useValue: txnRepo },
         { provide: AuditService, useValue: auditService },
         { provide: PinService, useValue: pinService },
       ],

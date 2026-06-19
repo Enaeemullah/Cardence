@@ -87,9 +87,8 @@ export class CardsController {
     return this.cardsService.requestLimitChange(id, dto);
   }
 
-  // Stub — Phase 4 will return real transaction records
   @Get(':id/transactions')
-  getTransactions() {
-    return [];
+  getTransactions(@Param('id') id: string) {
+    return this.cardsService.getTransactions(id);
   }
 }
