@@ -4,12 +4,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { HealthModule } from './health/health.module';
 import { CardLifecycleModule } from './card-lifecycle/card-lifecycle.module';
+import { AuditModule } from './audit/audit.module';
+import { PinModule } from './pin/pin.module';
+import { CustomersModule } from './customers/customers.module';
+import { AccountsModule } from './accounts/accounts.module';
+import { CardProductsModule } from './card-products/card-products.module';
+import { CardsModule } from './cards/cards.module';
+import { MakerCheckerModule } from './maker-checker/maker-checker.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      // Look for .env in the api directory first, then walk up to monorepo root
       envFilePath: ['.env', '../../.env'],
     }),
     TypeOrmModule.forRootAsync({
@@ -33,6 +39,13 @@ import { CardLifecycleModule } from './card-lifecycle/card-lifecycle.module';
     }),
     HealthModule,
     CardLifecycleModule,
+    AuditModule,
+    PinModule,
+    CustomersModule,
+    AccountsModule,
+    CardProductsModule,
+    CardsModule,
+    MakerCheckerModule,
   ],
 })
 export class AppModule {}
