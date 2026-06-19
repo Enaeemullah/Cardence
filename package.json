@@ -8,7 +8,8 @@
     "dev:web": "pnpm --filter web dev",
     "test": "pnpm -r test",
     "migration:run": "pnpm --filter api migration:run",
-    "migration:revert": "pnpm --filter api migration:revert"
+    "migration:revert": "pnpm --filter api migration:revert",
+    "seed": "pnpm --filter api seed"
   },
   "engines": {
     "node": ">=20.0.0",
