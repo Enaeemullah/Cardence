@@ -8,7 +8,7 @@ describe('App', () => {
   });
 
   it('renders the login page when no token is present', () => {
-    const { getByText } = render(<App />);
-    expect(getByText('Sign in')).toBeDefined();
+    const { getAllByText } = render(<App />);
+    expect(getAllByText('Sign in').length).toBeGreaterThan(0);
   });
 });

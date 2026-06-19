@@ -26,7 +26,7 @@ export default function DashboardPage() {
         <Link to="/approvals" className="stat-link">
           <div className="stat-card">
             <div className="stat-label">Pending Approvals</div>
-            <div className="stat-value" style={{ color: pendingCount > 0 ? '#d97706' : undefined }}>
+            <div className="stat-value" style={{ color: (approvals.data?.length ?? 0) > 0 ? '#d97706' : undefined }}>
               {pendingCount}
             </div>
           </div>

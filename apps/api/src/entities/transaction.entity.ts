@@ -31,16 +31,16 @@ export class Transaction {
   @Column({ length: 3 })
   currency: string;
 
-  @Column({ name: 'merchant_name', length: 200, nullable: true })
+  @Column({ name: 'merchant_name', type: 'varchar', length: 200, nullable: true })
   merchantName: string | null;
 
-  @Column({ name: 'merchant_code', length: 20, nullable: true })
+  @Column({ name: 'merchant_code', type: 'varchar', length: 20, nullable: true })
   merchantCode: string | null;
 
   @Column({ type: 'enum', enum: TransactionStatus })
   status: TransactionStatus;
 
-  @Column({ name: 'decline_reason', length: 100, nullable: true })
+  @Column({ name: 'decline_reason', type: 'varchar', length: 100, nullable: true })
   declineReason: string | null;
 
   @CreateDateColumn({ name: 'posted_at' })

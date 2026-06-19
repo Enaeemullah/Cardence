@@ -20,7 +20,7 @@ export class Customer {
   @Column({ length: 255, unique: true })
   email: string;
 
-  @Column({ length: 30, nullable: true })
+  @Column({ type: 'varchar', length: 30, nullable: true })
   phone: string | null;
 
   @Column({ name: 'date_of_birth', type: 'date', nullable: true })

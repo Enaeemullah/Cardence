@@ -38,7 +38,7 @@ export class Card {
   status: CardStatus;
 
   // Placeholder for real HSM PIN-block; stores bcrypt hash only
-  @Column({ name: 'pin_block_hash', length: 255, nullable: true })
+  @Column({ name: 'pin_block_hash', type: 'varchar', length: 255, nullable: true })
   pinBlockHash: string | null;
 
   // NULL = inherit from CardProduct

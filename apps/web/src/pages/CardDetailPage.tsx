@@ -47,7 +47,7 @@ export default function CardDetailPage() {
 
   const mutation = useMutation({
     mutationFn: (action: Action) => {
-      if (action === 'replace') return cardsApi.replace(id!);
+      if (action === 'replace') return cardsApi.replace(id!).then((r) => r.card);
       return cardsApi[action](id!);
     },
     onSuccess: () => {
