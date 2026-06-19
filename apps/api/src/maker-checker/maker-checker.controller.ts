@@ -1,11 +1,9 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { IsUUID } from 'class-validator';
+import { Controller, Get, Param, Post } from '@nestjs/common';
+import { UserRole } from '../common/enums';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { JwtPayload } from '../auth/jwt-payload.interface';
 import { MakerCheckerService } from './maker-checker.service';
-
-class DecideDto {
-  @IsUUID()
-  approverId: string; // Phase 5 will replace this with JWT user; kept here for Phase 3 testability
-}
 
 @Controller('approvals')
 export class MakerCheckerController {
@@ -21,13 +19,15 @@ export class MakerCheckerController {
     return this.makerCheckerService.findOne(id);
   }
 
+  @Roles(UserRole.APPROVER, UserRole.ADMIN)
   @Post(':id/approve')
-  approve(@Param('id') id: string, @Body() dto: DecideDto) {
-    return this.makerCheckerService.approve(id, dto.approverId);
+  approve(@Param('id') id: string, @CurrentUser() user: JwtPayload) {
+    return this.makerCheckerService.approve(id, user.sub);
   }
 
+  @Roles(UserRole.APPROVER, UserRole.ADMIN)
   @Post(':id/reject')
-  reject(@Param('id') id: string, @Body() dto: DecideDto) {
-    return this.makerCheckerService.reject(id, dto.approverId);
+  reject(@Param('id') id: string, @CurrentUser() user: JwtPayload) {
+    return this.makerCheckerService.reject(id, user.sub);
   }
 }

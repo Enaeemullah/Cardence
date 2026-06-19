@@ -1,4 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { UserRole } from '../common/enums';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
@@ -12,6 +14,7 @@ export class CustomersController {
     return this.customersService.findAll();
   }
 
+  @Roles(UserRole.OFFICER, UserRole.ADMIN)
   @Post()
   create(@Body() dto: CreateCustomerDto) {
     return this.customersService.create(dto);
@@ -22,6 +25,7 @@ export class CustomersController {
     return this.customersService.findOne(id);
   }
 
+  @Roles(UserRole.OFFICER, UserRole.ADMIN)
   @Put(':id')
   update(@Param('id') id: string, @Body() dto: UpdateCustomerDto) {
     return this.customersService.update(id, dto);

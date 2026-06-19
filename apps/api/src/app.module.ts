@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { HealthModule } from './health/health.module';
 import { CardLifecycleModule } from './card-lifecycle/card-lifecycle.module';
+import { AuthModule } from './auth/auth.module';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { RolesGuard } from './auth/guards/roles.guard';
 import { AuditModule } from './audit/audit.module';
 import { PinModule } from './pin/pin.module';
 import { CustomersModule } from './customers/customers.module';
@@ -48,6 +52,11 @@ import { AuthorizationModule } from './authorization/authorization.module';
     CardsModule,
     MakerCheckerModule,
     AuthorizationModule,
+    AuthModule,
+  ],
+  providers: [
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
   ],
 })
 export class AppModule {}
